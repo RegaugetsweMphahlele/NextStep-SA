@@ -83,8 +83,13 @@ function ProfileFields({ values, setValues, includeSummary = false }: {
       <span className="mb-1.5 block text-sm font-semibold">Qualification / field of study <span className="text-coral">*</span></span>
       <input required value={values.qualification} onChange={(event) => update('qualification', event.target.value)} className={selectClass} placeholder="e.g. Diploma in Financial Accounting" />
     </label>
-    <TagInput label="Skills" value={values.skills} onChange={(value) => update('skills', value)} placeholder="e.g. Excel, customer service, Python" required />
-    <TagInput label="Career interests" value={values.interests} onChange={(value) => update('interests', value)} placeholder="e.g. data analysis, community development" />
+    <fieldset className="sm:col-span-2 rounded-2xl bg-canvas/80 p-4 sm:p-5">
+      <legend className="px-1 text-sm font-bold">Help us understand what you’re looking for</legend>
+      <div className="mt-3 grid gap-6">
+        <TagInput label="Skills" value={values.skills} onChange={(value) => update('skills', value)} placeholder="e.g. Excel, customer service, Python" required />
+        <TagInput label="Career interests" value={values.interests} onChange={(value) => update('interests', value)} placeholder="e.g. data analysis, community development" />
+      </div>
+    </fieldset>
     <fieldset className="sm:col-span-2">
       <legend className="mb-2 text-sm font-semibold">Sectors you’re interested in</legend>
       <div className="flex flex-wrap gap-2">{sectors.map((sector) => <button type="button" key={sector} aria-pressed={values.preferred_sectors.includes(sector)} onClick={() => toggleChoice('preferred_sectors', sector)} className={`rounded-full border px-3 py-2 text-xs font-medium transition ${values.preferred_sectors.includes(sector) ? 'border-forest bg-forest text-white' : 'border-slate-200 bg-white text-slate-600 hover:border-forest/40'}`}>{sector}</button>)}</div>

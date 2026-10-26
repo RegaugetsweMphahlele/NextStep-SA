@@ -16,7 +16,7 @@ Accounts, password hashes, profiles, saved jobs and vacancies are stored in this
 
 ## Vacancies
 
-The app does not invent job listings or automatically scrape other websites. Sign in, choose **Add a vacancy**, and copy the role details from an actual advert, including its secure HTTPS source link and application deadline. Check the confirmation that the vacancy is current. The listing is saved only in this browser and is ranked against the signed-in profile's skills, qualification, interests, sectors, location and preferred work type. Confirm requirements and deadlines on the original employer or government advert before applying. The official [DPSA vacancy circular](https://www.dpsa.gov.za/newsroom/psvc/) is linked from the job and Z83 pages.
+The app does not invent job listings or automatically scrape other websites. Existing saved adverts in the local browser are read-only; new role searches open LinkedIn, Indeed South Africa and SAYouth in separate tabs. Search results from external sites are not presented as NextStep listings. The official [DPSA vacancy circular](https://www.dpsa.gov.za/newsroom/psvc/) is linked from the job and Z83 pages.
 
 ## Build
 

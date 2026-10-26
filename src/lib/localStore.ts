@@ -147,56 +147,28 @@ export function signOutAccount() {
 
 export function getCurrentJobs() {
   const today = new Date().toISOString().slice(0, 10)
-  return readData().jobs.filter((job) => job.is_active && (!job.application_deadline || job.application_deadline >= today))
+  return readData().jobs.filter((job) =>
+    !job.submitted_by &&
+    job.is_active &&
+    (!job.application_deadline || job.application_deadline >= today),
+  )
 }
 
 export function getCurrentSavedJobIds() {
   const data = readData()
-  return data.currentUserId ? data.savedJobs[data.currentUserId] ?? [] : []
+  if (!data.currentUserId) return []
+  const visibleJobIds = new Set(getCurrentJobs().map((job) => job.id))
+  return (data.savedJobs[data.currentUserId] ?? []).filter((jobId) => visibleJobIds.has(jobId))
 }
 
 export function toggleSavedJob(jobId: string) {
   const data = readData()
   if (!data.currentUserId) throw new Error('Sign in to save jobs to your account.')
-  if (!data.jobs.some((job) => job.id === jobId)) throw new Error('This vacancy is no longer available.')
+  if (!getCurrentJobs().some((job) => job.id === jobId)) throw new Error('This vacancy is no longer available.')
   const current = data.savedJobs[data.currentUserId] ?? []
   data.savedJobs[data.currentUserId] = current.includes(jobId)
     ? current.filter((savedId) => savedId !== jobId)
     : [...current, jobId]
   writeData(data)
   return data.savedJobs[data.currentUserId]
-}
-
-export function addLocalJob(job: Omit<JobPosting, 'id' | 'posted_at' | 'is_active'>) {
-  const data = readData()
-  if (!data.currentUserId) throw new Error('Sign in before adding a vacancy.')
-  const sourceUrl = new URL(job.source_url)
-  if (sourceUrl.protocol !== 'https:') throw new Error('The original advert must use a secure HTTPS link.')
-  if (data.jobs.some((item) => item.source_url === sourceUrl.href)) {
-    throw new Error('A vacancy from this advert link is already saved in this browser.')
-  }
-  const newJob: JobPosting = {
-    ...job,
-    id: window.crypto.randomUUID(),
-    source_url: sourceUrl.href,
-    posted_at: new Date().toISOString(),
-    is_active: true,
-    submitted_by: data.currentUserId,
-  }
-  data.jobs.push(newJob)
-  writeData(data)
-  return newJob
-}
-
-export function removeLocalJob(jobId: string) {
-  const data = readData()
-  const job = data.jobs.find((item) => item.id === jobId)
-  if (!data.currentUserId || job?.submitted_by !== data.currentUserId) {
-    throw new Error('Only the account that added a vacancy can remove it from this browser.')
-  }
-  data.jobs = data.jobs.filter((item) => item.id !== jobId)
-  for (const [userId, savedIds] of Object.entries(data.savedJobs)) {
-    data.savedJobs[userId] = savedIds.filter((id) => id !== jobId)
-  }
-  writeData(data)
 }

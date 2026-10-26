@@ -86,7 +86,7 @@ export function Z83Page() {
 
     <section className="mt-9 grid gap-4 sm:grid-cols-2">
       <a href="https://www.dpsa.gov.za/newsroom/psvc/" target="_blank" rel="noreferrer" className="rounded-2xl bg-forest p-6 text-white transition hover:bg-[#163f36]">
-        <p className="text-xs font-bold uppercase tracking-[.15em] text-lime">Official government source</p><h2 className="mt-2 text-xl font-bold">DPSA public-service vacancy circulars <span aria-hidden="true">↗</span></h2><p className="mt-2 text-sm leading-6 text-white/75">View circulars and read the official directions to candidates. Enquiries about individual vacancies go to the advertising department.</p>
+        <p className="text-xs font-bold uppercase tracking-[.15em] text-lime">Official government vacancies</p><h2 className="mt-2 text-xl font-bold">Browse government vacancies · DPSA <span aria-hidden="true">↗</span></h2><p className="mt-2 text-sm leading-6 text-white/75">Open the official public-service vacancy circulars, review current adverts and follow each department’s application instructions.</p>
       </a>
       <Link to="/profile" className="rounded-2xl border border-slate-200 bg-white p-6 transition hover:border-forest/30">
         <p className="text-xs font-bold uppercase tracking-[.15em] text-forest">Get application-ready</p><h2 className="mt-2 text-xl font-bold">Prepare your profile and CV <span aria-hidden="true">↗</span></h2><p className="mt-2 text-sm leading-6 text-muted">Keep your qualification and experience details together, then tailor the application for the post.</p>
